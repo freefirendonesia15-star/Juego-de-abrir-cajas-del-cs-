@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffd166" />
+  <meta name="description" content="Simulador gratuito de apertura de cajas estilo CS. Sin dinero real. Skins ficticias." />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icon.svg" />
+
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Case Sim" />
+
+  <title>Case Sim — Simulador CS</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="installBanner" style="display:none">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="/icon.svg" alt="" width="40" height="40" style="border-radius:10px" />
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px">Instalá Case Sim</div>
+        <div style="font-size:11px;color:#8896ae">Agregala a tu pantalla de inicio</div>
+      </div>
+      <button class="btn small" id="installBtn">Instalar</button>
+      <button class="btn small ghost" id="dismissInstall">✕</button>
+    </div>
+  </div>
+
+  <div class="live-feed" id="liveFeed"></div>
+  <div class="toasts" id="toasts"></div>
+  <div id="openOverlay" class="open-overlay" style="display:none">
+    <div class="reel-viewport">
+      <div class="reel-marker"></div>
+      <div class="reel" id="reel"></div>
+    </div>
+    <div class="open-result" id="openResult"></div>
+  </div>
+  <canvas id="confetti" style="position:fixed;inset:0;pointer-events:none;z-index:9999"></canvas>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/sound.js"></script>
+  <script src="/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
